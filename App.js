@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SearchView from './src/screens/search';
+import HistoryView from './src/screens/history';
+import FavoriteView from './src/screens/favorite';
+import DetailView from './src/screens/detail';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const HomeStack = createNativeStackNavigator();
+
+function SearchStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Search"  component={SearchView} />
+      <HomeStack.Screen name="Detail" component={DetailView} />
+    </HomeStack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer >
+      <Tab.Navigator screenOptions={{tabBarShowLabel: false}} >
+        <Tab.Screen name="History" component={HistoryView} />
+        <Tab.Screen name="Home" options={{headerShown: false}} component={SearchStack} />
+        <Tab.Screen name="Favorite" component={FavoriteView} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
