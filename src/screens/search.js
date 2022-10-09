@@ -1,5 +1,6 @@
 import {View, Button} from "react-native";
 import { Logo } from "../components/icons";
+import { COLORS } from "../utils/colors";
 
 function SearchView({navigation}) {
   return (
@@ -8,7 +9,7 @@ function SearchView({navigation}) {
         title="Go to Details"
         onPress={() => navigation.navigate('Detail')}
       />
-      <Logo color="#E11E3C" />
+      <Logo color={COLORS.red} />
     </View>
   );
 }

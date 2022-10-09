@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Favorite, Search, History } from './icons'
+import { COLORS } from '../utils/colors';
 
 function TabBar({ state, descriptors, navigation }) {
     return (
@@ -37,9 +38,9 @@ function TabBar({ state, descriptors, navigation }) {
                     </View>
                 ) : (
                     <TouchableOpacity key={label} onPress={onPress} style={style.tabBarButton}>
-                        {label === "History" && <History stroke="#758291" />}
-                        {label === "Favorite" && <Favorite stroke="#758291" />}
-                        {isFocused && <View style={{ height: 3, width: 3, borderRadius: 100, backgroundColor: '#E11E3C', marginTop: 5 }} />}
+                        {label === "History" && <History stroke={COLORS.textLight} />}
+                        {label === "Favorite" && <Favorite stroke={COLORS.textLight} />}
+                        {isFocused && <View style={{ height: 3, width: 3, borderRadius: 100, backgroundColor: COLORS.red, marginTop: 5 }} />}
                     </TouchableOpacity>
                 )
             })}
@@ -48,7 +49,6 @@ function TabBar({ state, descriptors, navigation }) {
 }
 
 export default TabBar;
-
 
 const style = StyleSheet.create({
     tabBarButton: {
@@ -68,7 +68,7 @@ const style = StyleSheet.create({
         alignItems: "center"
     },
     searchButton: {
-        backgroundColor: "#E11E3C",
+        backgroundColor: COLORS.red,
         flex: 1,
         borderRadius: 100,
         width: 60,
