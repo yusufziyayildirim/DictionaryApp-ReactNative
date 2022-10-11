@@ -60,19 +60,19 @@ const style = StyleSheet.create({
         height: 56
     },
     searchButtonWrap: {
-        paddingTop: 15,
+        paddingTop: 12,
         marginTop: -15,
         backgroundColor: "white",
         borderRadius: 9999,
         width: 84,
-        alignItems: "center"
+        alignItems: "center",
     },
     searchButton: {
         backgroundColor: COLORS.red,
         flex: 1,
         borderRadius: 100,
         width: 60,
-        height: 56,
-        paddingBottom: 40
+        height: 60
+
     }
 })

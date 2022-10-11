@@ -7,7 +7,7 @@ import SearchView from './src/screens/search';
 import HistoryView from './src/screens/history';
 import FavoriteView from './src/screens/favorite';
 import DetailView from './src/screens/detail';
-import TabBar from './src/components/tab-bar';
+import TabBar from './src/components/TabBar';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
