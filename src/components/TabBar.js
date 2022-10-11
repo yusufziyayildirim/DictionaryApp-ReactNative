@@ -31,16 +31,16 @@ function TabBar({ state, descriptors, navigation }) {
                 };
 
                 return label === 'Home' ? (
-                    <View key={label} style={style.searchButtonWrap}>
-                        <TouchableOpacity onPress={onPress} style={[style.tabBarButton, style.searchButton]}>
+                    <View key={label} style={styles.searchButtonWrap}>
+                        <TouchableOpacity onPress={onPress} style={[styles.tabBarButton, styles.searchButton]}>
                             <Search stroke="white" />
                         </TouchableOpacity>
                     </View>
                 ) : (
-                    <TouchableOpacity key={label} onPress={onPress} style={style.tabBarButton}>
-                        {label === "History" && <History stroke={COLORS.textLight} />}
-                        {label === "Favorite" && <Favorite stroke={COLORS.textLight} />}
-                        {isFocused && <View style={{ height: 3, width: 3, borderRadius: 100, backgroundColor: COLORS.red, marginTop: 5 }} />}
+                    <TouchableOpacity key={label} onPress={onPress} style={styles.tabBarButton}>
+                        {label === "History" && <History stroke={isFocused ? COLORS.red : COLORS.textLight} />}
+                        {label === "Favorite" && <Favorite stroke={isFocused ? COLORS.red : COLORS.textLight} />}
+                        {isFocused && <View style={styles.indicator} />}
                     </TouchableOpacity>
                 )
             })}
@@ -50,7 +50,7 @@ function TabBar({ state, descriptors, navigation }) {
 
 export default TabBar;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     tabBarButton: {
         flex: 1,
         // justifyContent: "start",
@@ -73,6 +73,12 @@ const style = StyleSheet.create({
         borderRadius: 100,
         width: 60,
         height: 60
-
+    },
+    indicator: {
+        height: 4,
+        width: 4, 
+        borderRadius: 100, 
+        backgroundColor: COLORS.red, 
+        marginTop: 5
     }
 })
