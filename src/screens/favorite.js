@@ -1,12 +1,14 @@
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 function FavoriteView() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Favorite!</Text>
-      </View>
-    );
+  return (
+    <SafeAreaView>
+      <FocusAwareStatusBar barStyle="dark-content" />
+      <Text>Favorite!</Text>
+    </SafeAreaView>
+  );
 }
 
 export default FavoriteView;
-  

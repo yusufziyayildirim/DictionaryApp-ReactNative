@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard } from "react-native";
 import { COLORS } from "../utils/colors";
 import { Search, Close } from "./icons";
 
-function SearchBox() {
+function SearchBox({ onChangeFocus }) {
 
     const [value, setValue] = useState(false);
     const [isFocus, setFocus] = useState(false);
+
+    useEffect(() => {
+        onChangeFocus(isFocus)
+    }, [isFocus])
 
     const onCancel = () => {
         setFocus(false)
@@ -23,7 +27,7 @@ function SearchBox() {
                     <Search color={COLORS.textMedium} />
                 </View>
                 {value.length > 0 && (
-                    <TouchableOpacity onPress={onClear}  style={styles.CloseIcon}>
+                    <TouchableOpacity onPress={onClear} style={styles.CloseIcon}>
                         <Close color={COLORS.textMedium} />
                     </TouchableOpacity>
                 )}
@@ -58,7 +62,6 @@ const styles = StyleSheet.create({
         height: 52,
         borderRadius: 8,
         backgroundColor: "white",
-        borderWidth: 1,
         color: COLORS.textDark,
         paddingLeft: 52,
         shadowColor: "#000",
@@ -70,6 +73,7 @@ const styles = StyleSheet.create({
         shadowRadius: 24,
     },
     BlueInputBorder: {
+        borderWidth: 1,
         borderColor: "#D1D1D1",
     },
     SearchIcon: {
