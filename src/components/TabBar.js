@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Favorite, Search, History } from './icons'
 import { COLORS } from '../utils/colors';
 
 function TabBar({ state, descriptors, navigation }) {
     return (
-        <View style={{ flexDirection: 'row' }}>
+        <View style={styles.tabBarWrap}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const label =
@@ -51,6 +51,14 @@ function TabBar({ state, descriptors, navigation }) {
 export default TabBar;
 
 const styles = StyleSheet.create({
+    tabBarWrap: {
+        flexDirection: 'row',
+        shadowColor: "#000",
+        backgroundColor: "white",
+        shadowOpacity: 0.1,
+        shadowRadius: 24,
+        paddingBottom: 30
+    },
     tabBarButton: {
         flex: 1,
         // justifyContent: "start",
@@ -76,9 +84,9 @@ const styles = StyleSheet.create({
     },
     indicator: {
         height: 4,
-        width: 4, 
-        borderRadius: 100, 
-        backgroundColor: COLORS.red, 
+        width: 4,
+        borderRadius: 100,
+        backgroundColor: COLORS.red,
         marginTop: 5
     }
 })
