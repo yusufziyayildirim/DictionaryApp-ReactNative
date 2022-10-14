@@ -11,7 +11,8 @@ import { COLORS } from "../utils/colors";
 import bg from '../assets/image/bg.jpg'
 
 function SearchView({ navigation }) {
-  const [redHeight] = useState(new Animated.Value(285))
+  const [bgOpacity] = useState(new Animated.Value(1))
+  const [redHeight] = useState(new Animated.Value(230))
   const [isSearchFocus, setSearchFocus] = useState(false);
 
   const DATA = [
@@ -35,6 +36,12 @@ function SearchView({ navigation }) {
 
   useEffect(() => {
     if (isSearchFocus) {
+      Animated.timing(bgOpacity, {
+        toValue: 0,
+        duration: 230,
+        useNativeDriver: false
+      }).start()
+
       Animated.timing(redHeight, {
         toValue: 0,
         duration: 230,
@@ -42,7 +49,13 @@ function SearchView({ navigation }) {
       }).start()
     } else {
       Animated.timing(redHeight, {
-        toValue: 285,
+        toValue: 230,
+        duration: 230,
+        useNativeDriver: false
+      }).start()
+
+      Animated.timing(bgOpacity, {
+        toValue: 1,
         duration: 230,
         useNativeDriver: false
       }).start()
@@ -58,7 +71,7 @@ function SearchView({ navigation }) {
       )}
 
       {/* Header */}
-      <Animated.View source={bg} style={{ height: redHeight, alignItems: "center", justifyContent: "center", zIndex: 1 }}>
+      <Animated.View source={bg} style={{ height: redHeight, alignItems: "center", justifyContent: "center", zIndex: 1, opacity: bgOpacity }}>
         {/* Logo */}
         {!isSearchFocus && (
           <View style={{ paddingVertical: 20, flex: 1, alignItems: "center", justifyContent: "center" }}>
