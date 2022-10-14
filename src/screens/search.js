@@ -1,16 +1,37 @@
 import { useEffect, useState } from "react";
-import { View, ImageBackground, Text, Animated } from "react-native";
+import { View, Text, Animated, FlatList, TouchableOpacity } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
-import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import { Logo } from "../components/icons";
-import SearchBox from "../components/SearchBox";
-import bg from '../assets/image/bg.jpg'
-import { COLORS } from "../utils/colors";
 
-function SearchView() {
+import { CardContainer, CardSummary, CardTitle } from "../components/Card";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import SearchBox from "../components/SearchBox";
+import { Logo } from "../components/icons";
+
+import { COLORS } from "../utils/colors";
+import bg from '../assets/image/bg.jpg'
+
+function SearchView({ navigation }) {
   const [redHeight] = useState(new Animated.Value(285))
-  const [logoScale] = useState(new Animated.Value(1))
   const [isSearchFocus, setSearchFocus] = useState(false);
+
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'First Item 1',
+      summary: 'acaklana 1'
+    },
+    {
+
+      id: '3ac68afc-c685-48d3-a4f8-fbd91aa97f63',
+      title: 'Second Item 2',
+      summary: 'acaklang 2'
+    },
+    {
+      id: "2",
+      title: 'Third Item 3',
+      summary: 'acaklang 3'
+    }
+  ]
 
   useEffect(() => {
     if (isSearchFocus) {
@@ -29,7 +50,7 @@ function SearchView() {
   }, [isSearchFocus])
 
   return (
-    <SafeAreaView style={{ backgroundColor: isSearchFocus ? COLORS.softRed : COLORS.red, flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: isSearchFocus ? COLORS.softGray : COLORS.red, flex: 1 }}>
       {!isSearchFocus ? (
         <FocusAwareStatusBar barStyle="light-content" />
       ) : (
@@ -40,13 +61,12 @@ function SearchView() {
       <Animated.View source={bg} style={{ height: redHeight, alignItems: "center", justifyContent: "center", zIndex: 1 }}>
         {/* Logo */}
         {!isSearchFocus && (
-        <View style={{paddingVertical: 20, flex: 1, alignItems: "center", justifyContent: "center" }}>
-          <Logo color="white" />
-        </View>
-      )}
-
-
+          <View style={{ paddingVertical: 20, flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <Logo color="white" />
+          </View>
+        )}
       </Animated.View>
+
       {/* Search */}
       <View style={{ width: "100%", padding: 16, marginBottom: isSearchFocus ? 0 : -42, zIndex: 2 }}>
         <SearchBox onChangeFocus={status => setSearchFocus(status)} />
@@ -54,13 +74,43 @@ function SearchView() {
 
       {/* Content */}
       <View style={{ flex: 1 }}>
-        {!isSearchFocus ? (
-          <View style={{ flex: 1, backgroundColor: "white", padding: 30, paddingTop: isSearchFocus ? 26 : 56 }}>
-            <Text>Content</Text>
+        {isSearchFocus ? (
+          <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 30, paddingTop: isSearchFocus ? 26 : 56 }}>
+            <Text>History</Text>
           </View>
         ) : (
-          <View style={{ flex: 1, backgroundColor: "white", padding: 30, paddingTop: isSearchFocus ? 26 : 56 }}>
-            <Text>Search Focused</Text>
+          <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 18, paddingTop: isSearchFocus ? 26 : 56 }}>
+            {/* <FlatList
+              data={DATA}
+              renderItem={({ item }) => (
+                <View style={{marginBottom: 12}}>
+                  <CardContainer>
+                    <CardTitle>{item.title}</CardTitle>
+                    <CardSummary>{item.summary}</CardSummary>
+                  </CardContainer>
+                </View>
+              )}
+              keyExtractor={item => item.id}
+            /> */}
+            <View>
+              <Text style={{ color: COLORS.textLight }}>Bir Deyim</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+                <CardContainer>
+                  <CardTitle>Title</CardTitle>
+                  <CardSummary>Description</CardSummary>
+                </CardContainer>
+              </TouchableOpacity>
+            </View>
+
+            <View style={{ marginTop: 40 }}>
+              <Text style={{ color: COLORS.textLight }}>Bir Deyim - Bir Atasözü</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+                <CardContainer>
+                  <CardTitle>Siyem siyem ağlamak</CardTitle>
+                  <CardSummary>Hafif hafif, durmadan gözyaşı dökmek</CardSummary>
+                </CardContainer>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
 
