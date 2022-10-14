@@ -38,8 +38,8 @@ function TabBar({ state, descriptors, navigation }) {
                     </View>
                 ) : (
                     <TouchableOpacity key={label} onPress={onPress} style={styles.tabBarButton}>
-                        {label === "History" && <History stroke={isFocused ? COLORS.red : COLORS.textLight} />}
-                        {label === "Favorite" && <Favorite stroke={isFocused ? COLORS.red : COLORS.textLight} />}
+                        {label === "History" && <History color={isFocused ? COLORS.red : COLORS.textLight} />}
+                        {label === "Favorite" && <Favorite width={24} height={24} color={isFocused ? COLORS.red : COLORS.textLight} />}
                         {isFocused && <View style={styles.indicator} />}
                     </TouchableOpacity>
                 )
