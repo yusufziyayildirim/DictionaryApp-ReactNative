@@ -95,7 +95,7 @@ function SearchView({ navigation }) {
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
                 <View>
-                  <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Detail', { title: item.title })}>
                     <SimpleCardContainer>
                       <SimpleCardTitle>{item.title}</SimpleCardTitle>
                     </SimpleCardContainer>
@@ -111,7 +111,7 @@ function SearchView({ navigation }) {
           <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 18, paddingTop: 56 }}>
             <View>
               <Text style={{ color: COLORS.textLight }}>Bir Deyim</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+              <TouchableOpacity onPress={() => navigation.navigate('Detail', { title: "Title" })}>
                 <CardContainer>
                   <CardTitle>Title</CardTitle>
                   <CardSummary>Description</CardSummary>
@@ -121,7 +121,7 @@ function SearchView({ navigation }) {
 
             <View style={{ marginTop: 40 }}>
               <Text style={{ color: COLORS.textLight }}>Bir Deyim - Bir Atasözü</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+              <TouchableOpacity onPress={() => navigation.navigate('Detail', { title: "Siyem siyem ağlamak" })}>
                 <CardContainer>
                   <CardTitle>Siyem siyem ağlamak</CardTitle>
                   <CardSummary>Hafif hafif, durmadan gözyaşı dökmek</CardSummary>
