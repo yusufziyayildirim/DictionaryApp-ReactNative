@@ -3,6 +3,7 @@ import { View, Text, Animated, FlatList, TouchableOpacity } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
 import { CardContainer, CardSummary, CardTitle } from "../components/Card";
+import { SimpleCardContainer, SimpleCardTitle } from "../components/SimpleCard";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import SearchBox from "../components/SearchBox";
 import { Logo } from "../components/icons";
@@ -88,23 +89,26 @@ function SearchView({ navigation }) {
       {/* Content */}
       <View style={{ flex: 1 }}>
         {isSearchFocus ? (
-          <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 30, paddingTop: isSearchFocus ? 26 : 56 }}>
-            <Text>History</Text>
-          </View>
-        ) : (
-          <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 18, paddingTop: isSearchFocus ? 26 : 56 }}>
-            {/* <FlatList
+          <View style={{ flex: 1, backgroundColor: COLORS.softGray, paddingHorizontal: 18 }}>
+            <FlatList
               data={DATA}
+              keyExtractor={item => item.id}
               renderItem={({ item }) => (
-                <View style={{marginBottom: 12}}>
-                  <CardContainer>
-                    <CardTitle>{item.title}</CardTitle>
-                    <CardSummary>{item.summary}</CardSummary>
-                  </CardContainer>
+                <View>
+                  <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
+                    <SimpleCardContainer>
+                      <SimpleCardTitle>{item.title}</SimpleCardTitle>
+                    </SimpleCardContainer>
+                  </TouchableOpacity>
                 </View>
               )}
-              keyExtractor={item => item.id}
-            /> */}
+              ListHeaderComponent={
+                <Text style={{ color: COLORS.textLight, marginBottom: 5 }}>Son Aramalar</Text>
+              }
+            />
+          </View>
+        ) : (
+          <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 18, paddingTop: 56 }}>
             <View>
               <Text style={{ color: COLORS.textLight }}>Bir Deyim</Text>
               <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
