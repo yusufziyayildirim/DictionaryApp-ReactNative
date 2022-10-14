@@ -1,6 +1,6 @@
 export const COLORS = {
     red: '#E11E3C',
-    softRed: '#F8F8F8',
+    softGray: '#F8F8F8',
     light: '#E8EAED',
     birlesikKelimeDark: '#2E494C',
     birlesikKelimeMedium: '#73A5AA',
