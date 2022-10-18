@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Text, Animated, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, Animated, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
 import { CardContainer, CardSummary, CardTitle } from "../components/Card";
@@ -15,6 +15,17 @@ function SearchView({ navigation }) {
   const [bgOpacity] = useState(new Animated.Value(1))
   const [redHeight] = useState(new Animated.Value(230))
   const [isSearchFocus, setSearchFocus] = useState(false);
+  const [homeData, setHomeData] = useState(null);
+
+  const getHomeData = async () => {
+    const response = await fetch("https://sozluk.gov.tr/icerik")
+    const data = await response.json();
+    setHomeData(data);
+  }
+
+  useEffect(() => {
+    getHomeData()
+  }, [])
 
   const DATA = [
     {
@@ -110,11 +121,20 @@ function SearchView({ navigation }) {
         ) : (
           <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 18, paddingTop: 56 }}>
             <View>
-              <Text style={{ color: COLORS.textLight }}>Bir Deyim</Text>
+              <Text style={{ color: COLORS.textLight }}>Bir Kelime</Text>
               <TouchableOpacity onPress={() => navigation.navigate('Detail', { title: "Title" })}>
                 <CardContainer>
-                  <CardTitle>Title</CardTitle>
-                  <CardSummary>Description</CardSummary>
+                  {
+                    homeData ? (
+                      <>
+                        <CardTitle>{homeData?.kelime[0].madde}</CardTitle>
+                        <CardSummary>{homeData?.kelime[0].anlam}</CardSummary>
+                      </>
+                    ) : (
+                      <ActivityIndicator />
+                    )
+                  }
+
                 </CardContainer>
               </TouchableOpacity>
             </View>
@@ -123,8 +143,16 @@ function SearchView({ navigation }) {
               <Text style={{ color: COLORS.textLight }}>Bir Deyim - Bir Atasözü</Text>
               <TouchableOpacity onPress={() => navigation.navigate('Detail', { title: "Siyem siyem ağlamak" })}>
                 <CardContainer>
-                  <CardTitle>Siyem siyem ağlamak</CardTitle>
-                  <CardSummary>Hafif hafif, durmadan gözyaşı dökmek</CardSummary>
+                  {
+                    homeData ? (
+                      <>
+                        <CardTitle>{homeData?.atasoz[0].madde}</CardTitle>
+                        <CardSummary>{homeData?.atasoz[0].anlam}</CardSummary>
+                      </>
+                    ) : (
+                      <ActivityIndicator />
+                    )
+                  }
                 </CardContainer>
               </TouchableOpacity>
             </View>
