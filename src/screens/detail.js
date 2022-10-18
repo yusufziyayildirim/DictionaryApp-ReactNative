@@ -3,24 +3,43 @@ import { View, Text, ScrollView } from "react-native";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import { COLORS } from "../utils/colors";
 import { ActionButton, ActionButtonTitle } from "../components/ActionButton";
-import { SoundSolid, Favorite, Hand } from '../components/icons'
-import { DetailSummaryItemContainer, DetailSummaryItemTitle, DetailSummaryItemSummary } from "../components/DetailSummaryItem";
+import { Sound, Favorite, Hand } from '../components/icons'
+import DetailSummaryItem from "../components/DetailSummaryItem";
+import LoaderText from "../components/LoaderText";
+import { useEffect, useState } from "react";
 
-function DetailView() {
+function DetailView({ route }) {
+  const keyword = route.params?.title;
+  const [data, setData] = useState(null);
+
+  const getDetailData = async () => {
+    const response = await fetch(`https://sozluk.gov.tr/gts?ara=${keyword}`)
+    const data = await response.json();
+    setData(data[0]);
+  }
+
+  useEffect(() => {
+    getDetailData()
+  }, [])
+
   return (
-    <SafeAreaView style={{ backgroundColor: COLORS.softGray, flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: COLORS.softGray, flex: 1 }}>
       <FocusAwareStatusBar barStyle="dark-content" />
-      <ScrollView style={{padding: 16 }}>
-
+      <ScrollView style={{ padding: 16 }}>
         <View>
-          <Text style={{ fontSize: 32, fontWeight: "bold" }}>Kalem</Text>
-          <Text style={{ color: COLORS.textLight, marginTop: 6 }}>Arapça kalem</Text>
+          <Text style={{ fontSize: 32, fontWeight: "bold" }}>{keyword}</Text>
+          {data?.telaffuz || data?.lisan ? (
+            <Text style={{ color: COLORS.textLight, marginTop: 6 }}>
+              {data?.telaffuz && data?.telaffuz} {data?.lisan}
+            </Text>
+          ) : null}
+          <Text style={{ color: COLORS.textLight, marginTop: 6 }}>{data?.telaffuz && data?.telaffuz} {data?.lisan}</Text>
         </View>
 
         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", width: 114 }}>
-            <ActionButton>
-              <SoundSolid width={24} height={24} color={COLORS.red} />
+            <ActionButton disabled={!data}>
+              <Sound width={24} height={24} color={COLORS.textDark} />
             </ActionButton>
             <ActionButton>
               <Favorite width={24} height={24} color={COLORS.textDark} />
@@ -33,17 +52,24 @@ function DetailView() {
         </View>
 
         <View style={{ marginTop: 32 }}>
-          <DetailSummaryItemContainer>
-            <DetailSummaryItemTitle>Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç:</DetailSummaryItemTitle>
-            <DetailSummaryItemSummary>"Kağıt, kalem, mürekkep, hepsi masanın üstündedir." - Falih Rıfkı Atay</DetailSummaryItemSummary>
-          </DetailSummaryItemContainer>
-          <DetailSummaryItemContainer border={false}>
-            <DetailSummaryItemTitle>Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç:</DetailSummaryItemTitle>
-            <DetailSummaryItemSummary>"Kağıt, kalem, mürekkep, hepsi masanın üstündedir." - Falih Rıfkı Atay</DetailSummaryItemSummary>
-          </DetailSummaryItemContainer>
+          {data ?
+            data.anlamlarListe.map(item => (
+              <DetailSummaryItem
+                key={item.anlam_sira}
+                data={item}
+                border={item.anlam_sira == '1' ? false : true}
+              />
+            )) : (
+              [1, 2, 3].map(i => (
+                <DetailSummaryItem key={i} border={i == 3 ? false : true}>
+                  <LoaderText width={160} />
+                  <LoaderText width={240} mt={10} />
+                </DetailSummaryItem>
+              ))
+            )
+          }
         </View>
       </ScrollView>
-
     </SafeAreaView>
   );
 }
