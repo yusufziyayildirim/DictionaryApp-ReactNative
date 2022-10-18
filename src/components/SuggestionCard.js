@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { CardContainer, CardSummary, CardTitle } from "./Card";
 
 import { COLORS } from '../utils/colors';
+import LoaderText from './LoaderText';
 
 
 const SuggestionCard = ({ title, onPress, data, marginTop = true }) => {
@@ -18,7 +19,10 @@ const SuggestionCard = ({ title, onPress, data, marginTop = true }) => {
                                 <CardSummary>{data.anlam}</CardSummary>
                             </>
                         ) : (
-                            <ActivityIndicator />
+                            <View>
+                                <LoaderText width={160} />
+                                <LoaderText width={240} mt={10} />
+                            </View>
                         )
                     }
                 </CardContainer>

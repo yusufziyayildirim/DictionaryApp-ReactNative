@@ -22,7 +22,7 @@ function SearchView({ navigation }) {
     getHomeData()
   }, [])
 
-  const DATA = [
+  const HistoryDATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'First Item 1',
@@ -52,7 +52,7 @@ function SearchView({ navigation }) {
       <View style={{ flex: 1 }}>
         {isSearchFocus ? (
           <View style={{ flex: 1, backgroundColor: COLORS.softGray, paddingHorizontal: 18 }}>
-            <SearchHistoryList data={DATA} navigation={navigation} />
+            <SearchHistoryList data={HistoryDATA} navigation={navigation} />
           </View>
         ) : (
           <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 18, paddingTop: 56 }}>
