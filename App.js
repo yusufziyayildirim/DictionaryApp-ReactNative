@@ -25,7 +25,7 @@ function SearchStack() {
       <HomeStack.Screen
         name="Detail"
         options={({ route, navigation }) => ({
-          title: route.params.title,
+          title: route.params?.title,
           headerStyle: {
             backgroundColor: COLORS.softGray,
           },
