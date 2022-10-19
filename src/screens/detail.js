@@ -23,14 +23,14 @@ function DetailView({ route }) {
   }, [])
 
   return (
-    <SafeAreaView style={{ backgroundColor: COLORS.softGray, flex: 1 }}>
+    <View style={{ backgroundColor: COLORS.softGray, flex: 1 }}>
       <FocusAwareStatusBar barStyle="dark-content" />
       <ScrollView style={{ padding: 16 }}>
         <View>
           <Text style={{ fontSize: 32, fontWeight: "bold" }}>{keyword}</Text>
           {data?.telaffuz || data?.lisan ? (
-            <Text style={{ color: COLORS.textLight, marginTop: 6 }}>
-              {data?.telaffuz && data?.telaffuz} {data?.lisan}
+            <Text style={{ color: COLORS.textLight }}>
+              {data?.telaffuz && data?.lisan}
             </Text>
           ) : null}
           <Text style={{ color: COLORS.textLight, marginTop: 6 }}>{data?.telaffuz && data?.telaffuz} {data?.lisan}</Text>
@@ -57,7 +57,7 @@ function DetailView({ route }) {
               <DetailSummaryItem
                 key={item.anlam_sira}
                 data={item}
-                border={item.anlam_sira == '1' ? false : true}
+                border={item.anlam_sira != data.anlamlarListe.length ? true : false}
               />
             )) : (
               [1, 2, 3].map(i => (
@@ -70,7 +70,7 @@ function DetailView({ route }) {
           }
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
