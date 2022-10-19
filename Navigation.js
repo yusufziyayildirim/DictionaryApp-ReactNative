@@ -20,20 +20,25 @@ const HomeStack = createNativeStackNavigator();
 function SearchStack() {
     return (
         <HomeStack.Navigator>
-            <HomeStack.Screen name="Search" options={{ headerShown: false }} component={SearchView} />
+            <HomeStack.Screen
+                name="Search"
+                component={SearchView}
+                options={{ headerShown: false }}
+            />
             <HomeStack.Screen
                 name="Detail"
+                component={DetailView}
                 options={({ route, navigation }) => ({
                     title: route.params?.title,
-                    headerStyle: {
-                        backgroundColor: COLORS.softGray,
-                    },
                     headerShadowVisible: false,
+                    headerStyle: {
+                        backgroundColor: COLORS.softGray
+                    },
                     headerLeft: () => (
                         <TouchableOpacity
                             style={{ padding: 5 }}
                             onPress={
-                                () => navigation.navigate("Search")
+                                () => navigation.goBack()
                             }
                         >
                             <Left color={COLORS.textDark} />
@@ -50,7 +55,83 @@ function SearchStack() {
                         </TouchableOpacity>
                     )
                 })}
+
+            />
+        </HomeStack.Navigator>
+    );
+}
+function FavoriteStack() {
+    return (
+        <HomeStack.Navigator>
+            <HomeStack.Screen
+                name="FavoriteStack"
+                component={FavoriteView}
+                options={() => ({
+                    title: "Favoriler",
+                    headerShadowVisible: false,
+                    headerStyle: {
+                        backgroundColor: COLORS.softGray
+                    }
+                })}
+            />
+            <HomeStack.Screen
+                name="Detail"
                 component={DetailView}
+                options={({ navigation }) => ({
+                    title: "Favoriler",
+                    headerShadowVisible: false,
+                    headerStyle: {
+                        backgroundColor: COLORS.softGray
+                    },
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ padding: 5 }}
+                            onPress={
+                                () => navigation.goBack()
+                            }
+                        >
+                            <Left color={COLORS.textDark} />
+                        </TouchableOpacity>
+                    )
+                })}
+            />
+        </HomeStack.Navigator>
+    );
+}
+function HistoryStack() {
+    return (
+        <HomeStack.Navigator>
+            <HomeStack.Screen
+                name="HistoryStack"
+                component={HistoryView}
+                options={() => ({
+                    title: "Geçmiş",
+                    headerShadowVisible: false,
+                    headerStyle: {
+                        backgroundColor: COLORS.softGray
+                    }
+                })}
+            />
+            <HomeStack.Screen
+                name="Detail"
+                component={DetailView}
+                options={({ navigation }) => ({
+                    title: "Geçmiş",
+                    headerShadowVisible: false,
+                    headerStyle: {
+                        backgroundColor: COLORS.softGray
+                    },
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ padding: 5 }}
+                            onPress={
+                                () => navigation.goBack()
+                            }
+                        >
+                            <Left color={COLORS.textDark} />
+                        </TouchableOpacity>
+                    )
+                })}
             />
         </HomeStack.Navigator>
     );
@@ -59,10 +140,22 @@ function SearchStack() {
 export default function App() {
     return (
         <NavigationContainer >
-            <Tab.Navigator initialRouteName='Home' screenOptions={{ tabBarShowLabel: false, headerShown: false }} tabBar={props => <TabBar {...props} />} >
-                <Tab.Screen name="History" component={HistoryView} />
-                <Tab.Screen name="Home" component={SearchStack} />
-                <Tab.Screen name="Favorite" component={FavoriteView} />
+            <Tab.Navigator initialRouteName='Home' tabBar={props => <TabBar {...props} />} >
+                <Tab.Screen
+                    name="History"
+                    component={HistoryStack}
+                    options={{ headerShown: false }}
+                />
+                <Tab.Screen
+                    name="Home"
+                    component={SearchStack}
+                    options={{ headerShown: false }}
+                />
+                <Tab.Screen
+                    name="Favorite"
+                    component={FavoriteStack}
+                    options={{ headerShown: false }}
+                />
             </Tab.Navigator>
         </NavigationContainer>
     );
