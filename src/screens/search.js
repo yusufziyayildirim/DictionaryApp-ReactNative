@@ -5,12 +5,13 @@ import SafeAreaView from "react-native-safe-area-view";
 
 import { COLORS } from "../utils/colors";
 import SuggestionCard from "../components/SuggestionCard";
-import SearchHistoryList from "../components/SearchHistoryList";
+import TitleCardList from "../components/TitleCardList";
 import HomeSearch from "../components/HomeSearch";
 
 function SearchView({ navigation }) {
   const [isSearchFocus, setSearchFocus] = useState(false);
   const [homeData, setHomeData] = useState(null);
+
 
   const getHomeData = async () => {
     const response = await fetch("https://sozluk.gov.tr/icerik")
@@ -52,7 +53,7 @@ function SearchView({ navigation }) {
       <View style={{ flex: 1 }}>
         {isSearchFocus ? (
           <View style={{ flex: 1, backgroundColor: COLORS.softGray, paddingHorizontal: 18 }}>
-            <SearchHistoryList data={HistoryDATA} navigation={navigation} />
+            <TitleCardList data={HistoryDATA} navigation={navigation} title="Son aramalar"  />
           </View>
         ) : (
           <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 18, paddingTop: 56 }}>
