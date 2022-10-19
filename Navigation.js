@@ -28,8 +28,8 @@ function SearchStack() {
             <HomeStack.Screen
                 name="Detail"
                 component={DetailView}
-                options={({ route, navigation }) => ({
-                    title: route.params?.title,
+                options={({ navigation }) => ({
+                    title: "Türkçe Sözlük",
                     headerShadowVisible: false,
                     headerStyle: {
                         backgroundColor: COLORS.softGray

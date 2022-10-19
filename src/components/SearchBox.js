@@ -3,9 +3,8 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard } from "r
 import { COLORS } from "../utils/colors";
 import { Search, Close } from "./icons";
 
-function SearchBox({ onChangeFocus }) {
-
-    const [value, setValue] = useState(false);
+function SearchBox({ onChangeFocus, searchKeywords, clearRes }) {
+    const [value, setValue] = useState("");
     const [isFocus, setFocus] = useState(false);
 
     useEffect(() => {
@@ -14,10 +13,22 @@ function SearchBox({ onChangeFocus }) {
 
     const onCancel = () => {
         setFocus(false)
+        setValue("")
+        clearRes()
         Keyboard.dismiss()
     }
     const onClear = () => {
         setValue("")
+        clearRes()
+    }
+
+    const handleOnChangeText = (text) => {
+        setValue(text)
+        if(text.length > 2){
+            searchKeywords(text);
+        }else{
+            clearRes()
+        }
     }
 
     return (
@@ -37,7 +48,7 @@ function SearchBox({ onChangeFocus }) {
                     style={[styles.SearchInput, isFocus ? styles.BlueInputBorder : ""]}
                     onFocus={() => setFocus(true)}
                     value={value}
-                    onChangeText={text => setValue(text)}
+                    onChangeText={handleOnChangeText}
                 />
             </View>
             {isFocus && (

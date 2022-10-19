@@ -8,7 +8,7 @@ import FocusAwareStatusBar from './FocusAwareStatusBar'
 
 import bg from '../assets/image/bg.jpg'
 
-const HomeSearch = ({isSearchFocus, onSearchFocus}) => {
+const HomeSearch = ({isSearchFocus, onSearchFocus, searchKeywords, clearRes}) => {
     const [bgOpacity] = useState(new Animated.Value(1))
     const [redHeight] = useState(new Animated.Value(230))
 
@@ -59,7 +59,7 @@ const HomeSearch = ({isSearchFocus, onSearchFocus}) => {
             </Animated.View>
             {/* Search */}
             <View style={{ width: "100%", padding: 16, marginBottom: isSearchFocus ? 0 : -42, zIndex: 2 }}>
-                <SearchBox onChangeFocus={status => onSearchFocus(status)} />
+                <SearchBox onChangeFocus={status => onSearchFocus(status)} searchKeywords={searchKeywords} clearRes={clearRes} />
             </View>
         </>
     )
