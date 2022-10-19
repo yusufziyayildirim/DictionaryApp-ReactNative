@@ -10,3 +10,4 @@ export { default as More } from "./More";
 export { default as Search } from "./Search";
 export { default as SoundSolid } from "./SoundSolid";
 export { default as Sound } from "./Sound";
+export { default as Vector } from "./Vector";
