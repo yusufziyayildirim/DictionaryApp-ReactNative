@@ -2,9 +2,9 @@ import React from 'react'
 import { TouchableOpacity, Text, View } from "react-native";
 import { COLORS } from '../utils/colors';
 
-const ActionButton = ({ children, disabled }) => {
+const ActionButton = ({ children, disabled, onPress }) => {
   return (
-    <TouchableOpacity disabled={disabled}>
+    <TouchableOpacity onPress={onPress} disabled={disabled}>
       <View style={{
         flexDirection:"row",
         alignItems:"center",

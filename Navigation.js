@@ -18,7 +18,48 @@ import { TouchableOpacity } from 'react-native';
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
 
-function SearchStack({ historyData, setHistoryData }) {
+function HistoryStack({ historyData, setHistoryData, favoritesData, setFavoritesData }) {
+    return (
+        <HomeStack.Navigator>
+            <HomeStack.Screen
+                name="HistoryStack"
+                options={() => ({
+                    title: "Geçmiş",
+                    headerShadowVisible: false,
+                    headerStyle: {
+                        backgroundColor: COLORS.softGray
+                    }
+                })}
+            >
+                {(props) => <HistoryView historyData={historyData} setHistoryData={setHistoryData} {...props} />}
+            </HomeStack.Screen>
+
+            <HomeStack.Screen
+                name="Detail"
+                options={({ navigation }) => ({
+                    title: "Geçmiş",
+                    headerShadowVisible: false,
+                    headerStyle: {
+                        backgroundColor: COLORS.softGray
+                    },
+                    headerLeft: () => (
+                        <TouchableOpacity
+                            style={{ padding: 5 }}
+                            onPress={
+                                () => navigation.goBack()
+                            }
+                        >
+                            <Left color={COLORS.textDark} />
+                        </TouchableOpacity>
+                    )
+                })}
+            >
+                {(props) => <DetailView favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props} />}
+            </HomeStack.Screen>
+        </HomeStack.Navigator>
+    );
+}
+function SearchStack({ historyData, setHistoryData, favoritesData, setFavoritesData }) {
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen
@@ -29,7 +70,6 @@ function SearchStack({ historyData, setHistoryData }) {
             </HomeStack.Screen>
             <HomeStack.Screen
                 name="Detail"
-                component={DetailView}
                 options={({ navigation }) => ({
                     title: "Türkçe Sözlük",
                     headerShadowVisible: false,
@@ -57,7 +97,9 @@ function SearchStack({ historyData, setHistoryData }) {
                         </TouchableOpacity>
                     )
                 })}
-            />
+            >
+                {(props) => <DetailView favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props} />}
+            </HomeStack.Screen>
         </HomeStack.Navigator>
     );
 }
@@ -74,11 +116,10 @@ function FavoriteStack({ favoritesData, setFavoritesData }) {
                     }
                 })}
             >
-                {(props) => <FavoriteView favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props}/>}
+                {(props) => <FavoriteView favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props} />}
             </HomeStack.Screen>
             <HomeStack.Screen
                 name="Detail"
-                component={DetailView}
                 options={({ navigation }) => ({
                     title: "Favoriler",
                     headerShadowVisible: false,
@@ -96,47 +137,9 @@ function FavoriteStack({ favoritesData, setFavoritesData }) {
                         </TouchableOpacity>
                     )
                 })}
-            />
-        </HomeStack.Navigator>
-    );
-}
-function HistoryStack({ historyData, setHistoryData }) {
-    return (
-        <HomeStack.Navigator>
-            <HomeStack.Screen
-                name="HistoryStack"
-                options={() => ({
-                    title: "Geçmiş",
-                    headerShadowVisible: false,
-                    headerStyle: {
-                        backgroundColor: COLORS.softGray
-                    }
-                })}
             >
-                {(props) => <HistoryView historyData={historyData} setHistoryData={setHistoryData} {...props} />}
+                {(props) => <DetailView favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props} />}
             </HomeStack.Screen>
-
-            <HomeStack.Screen
-                name="Detail"
-                component={DetailView}
-                options={({ navigation }) => ({
-                    title: "Geçmiş",
-                    headerShadowVisible: false,
-                    headerStyle: {
-                        backgroundColor: COLORS.softGray
-                    },
-                    headerLeft: () => (
-                        <TouchableOpacity
-                            style={{ padding: 5 }}
-                            onPress={
-                                () => navigation.goBack()
-                            }
-                        >
-                            <Left color={COLORS.textDark} />
-                        </TouchableOpacity>
-                    )
-                })}
-            />
         </HomeStack.Navigator>
     );
 }
@@ -152,13 +155,13 @@ export default function Navigation() {
                     name="History"
                     options={{ headerShown: false }}
                 >
-                    {(props) => <HistoryStack historyData={historyData} setHistoryData={setHistoryData} {...props} />}
+                    {(props) => <HistoryStack historyData={historyData} setHistoryData={setHistoryData} favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props} />}
                 </Tab.Screen>
                 <Tab.Screen
                     name="Home"
                     options={{ headerShown: false }}
                 >
-                    {(props) => <SearchStack historyData={historyData} setHistoryData={setHistoryData} {...props} />}
+                    {(props) => <SearchStack historyData={historyData} setHistoryData={setHistoryData} favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props} />}
                 </Tab.Screen>
                 <Tab.Screen
                     name="Favorite"

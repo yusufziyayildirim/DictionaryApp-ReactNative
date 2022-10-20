@@ -7,13 +7,14 @@ const TitleCardList = ({ data, navigation, title, icon, oldData, setOldData }) =
 
     const handleClick = (item) => {
         navigation.navigate('Detail', { title: item.madde })
-        oldData = oldData.filter(data => data.madde.toLowerCase() != item.madde.toLowerCase())
-
-        setOldData([
-            { madde: item.madde },
-            ...oldData
-        ]);
-    };
+        if(oldData){
+            oldData = oldData.filter(data => data.madde.toLowerCase() != item.madde.toLowerCase())
+            setOldData([
+                { madde: item.madde },
+                ...oldData
+            ]);
+        }
+    }
 
     return (
         <FlatList
