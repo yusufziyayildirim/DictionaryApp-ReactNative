@@ -3,11 +3,16 @@ import { TouchableOpacity, View, Text, FlatList } from 'react-native'
 import { COLORS } from '../utils/colors'
 import { SimpleCardContainer, SimpleCardTitle } from './SimpleCard'
 
-const TitleCardList = ({ data, navigation, title, icon }) => {
+const TitleCardList = ({ data, navigation, title, icon, oldData, setOldData }) => {
 
-    const handlerLongClick = () => {
-        //handler for Long Click
-        console.log(data);
+    const handleClick = (item) => {
+        navigation.navigate('Detail', { title: item.madde })
+        oldData = oldData.filter(data => data.madde.toLowerCase() != item.madde.toLowerCase())
+
+        setOldData([
+            { madde: item.madde },
+            ...oldData
+        ]);
     };
 
     return (
@@ -15,11 +20,11 @@ const TitleCardList = ({ data, navigation, title, icon }) => {
             data={data}
             renderItem={({ item }) => (
                 <View>
-                    <TouchableOpacity onPress={() => navigation.navigate('Detail', { title: item.madde })} >
+                    <TouchableOpacity onPress={() => handleClick(item)} >
                         <SimpleCardContainer>
-                            <View style={{flexDirection:"row", alignItems:'center', justifyContent:'space-between'}}>
+                            <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-between' }}>
                                 <SimpleCardTitle>{item.madde}</SimpleCardTitle>
-                                {icon}
+                                {icon && (icon)}
                             </View>
                         </SimpleCardContainer>
                     </TouchableOpacity>

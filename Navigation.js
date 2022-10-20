@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -17,14 +18,15 @@ import { TouchableOpacity } from 'react-native';
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
 
-function SearchStack() {
+function SearchStack({ historyData, setHistoryData }) {
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen
                 name="Search"
-                component={SearchView}
                 options={{ headerShown: false }}
-            />
+            >
+                {(props) => <SearchView historyData={historyData} setHistoryData={setHistoryData} {...props} />}
+            </HomeStack.Screen>
             <HomeStack.Screen
                 name="Detail"
                 component={DetailView}
@@ -55,17 +57,15 @@ function SearchStack() {
                         </TouchableOpacity>
                     )
                 })}
-
             />
         </HomeStack.Navigator>
     );
 }
-function FavoriteStack() {
+function FavoriteStack({ favoritesData, setFavoritesData }) {
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen
                 name="FavoriteStack"
-                component={FavoriteView}
                 options={() => ({
                     title: "Favoriler",
                     headerShadowVisible: false,
@@ -73,7 +73,9 @@ function FavoriteStack() {
                         backgroundColor: COLORS.softGray
                     }
                 })}
-            />
+            >
+                {(props) => <FavoriteView favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props}/>}
+            </HomeStack.Screen>
             <HomeStack.Screen
                 name="Detail"
                 component={DetailView}
@@ -98,12 +100,11 @@ function FavoriteStack() {
         </HomeStack.Navigator>
     );
 }
-function HistoryStack() {
+function HistoryStack({ historyData, setHistoryData }) {
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen
                 name="HistoryStack"
-                component={HistoryView}
                 options={() => ({
                     title: "Geçmiş",
                     headerShadowVisible: false,
@@ -111,7 +112,10 @@ function HistoryStack() {
                         backgroundColor: COLORS.softGray
                     }
                 })}
-            />
+            >
+                {(props) => <HistoryView historyData={historyData} setHistoryData={setHistoryData} {...props} />}
+            </HomeStack.Screen>
+
             <HomeStack.Screen
                 name="Detail"
                 component={DetailView}
@@ -137,25 +141,31 @@ function HistoryStack() {
     );
 }
 
-export default function App() {
+export default function Navigation() {
+    const [historyData, setHistoryData] = useState([]);
+    const [favoritesData, setFavoritesData] = useState([]);
+
     return (
         <NavigationContainer >
             <Tab.Navigator initialRouteName='Home' tabBar={props => <TabBar {...props} />} >
                 <Tab.Screen
                     name="History"
-                    component={HistoryStack}
                     options={{ headerShown: false }}
-                />
+                >
+                    {(props) => <HistoryStack historyData={historyData} setHistoryData={setHistoryData} {...props} />}
+                </Tab.Screen>
                 <Tab.Screen
                     name="Home"
-                    component={SearchStack}
                     options={{ headerShown: false }}
-                />
+                >
+                    {(props) => <SearchStack historyData={historyData} setHistoryData={setHistoryData} {...props} />}
+                </Tab.Screen>
                 <Tab.Screen
                     name="Favorite"
-                    component={FavoriteStack}
                     options={{ headerShown: false }}
-                />
+                >
+                    {(props) => <FavoriteStack favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props} />}
+                </Tab.Screen>
             </Tab.Navigator>
         </NavigationContainer>
     );

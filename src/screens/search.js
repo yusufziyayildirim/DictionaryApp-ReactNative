@@ -8,7 +8,7 @@ import SuggestionCard from "../components/SuggestionCard";
 import TitleCardList from "../components/TitleCardList";
 import HomeSearch from "../components/HomeSearch";
 
-function SearchView({ navigation }) {
+function SearchView({ navigation, historyData, setHistoryData }) {
   const [isSearchFocus, setSearchFocus] = useState(false);
   const [homeData, setHomeData] = useState(null);
   const [completeData, setCompleteData] = useState();
@@ -34,7 +34,7 @@ function SearchView({ navigation }) {
   const searchKeywords = (text) => {
     setSearchRes(
       completeData.filter(keyword =>
-        keyword.madde.toLowerCase().includes(text.toLowerCase())
+        keyword.madde.toLowerCase().startsWith(text.toLowerCase())
       )
     )
   }
@@ -43,24 +43,6 @@ function SearchView({ navigation }) {
     setSearchRes("")
   }
 
-  const HistoryDATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      madde: 'First Item 1',
-      summary: 'acaklana 1'
-    },
-    {
-
-      id: '3ac68afc-c685-48d3-a4f8-fbd91aa97f63',
-      madde: 'Second Item 2',
-      summary: 'acaklang 2'
-    },
-    {
-      id: "2",
-      madde: 'Third Item 3',
-      summary: 'acaklang 3'
-    }
-  ]
 
   return (
     <SafeAreaView style={{ backgroundColor: isSearchFocus ? COLORS.softGray : COLORS.red, flex: 1 }}>
@@ -75,7 +57,7 @@ function SearchView({ navigation }) {
       <View style={{ flex: 1 }}>
         {isSearchFocus ? (
           <View style={{ flex: 1, backgroundColor: COLORS.softGray, paddingHorizontal: 18 }}>
-            <TitleCardList data={searchRes ? searchRes : HistoryDATA} navigation={navigation} title= {searchRes ? null : "Son aramalar"}  />
+            <TitleCardList oldData={historyData} setOldData={setHistoryData} data={searchRes ? searchRes : historyData} navigation={navigation} title={searchRes ? null : "Son aramalar"} />
           </View>
         ) : (
           <View style={{ flex: 1, backgroundColor: COLORS.softGray, padding: 18, paddingTop: 56 }}>
