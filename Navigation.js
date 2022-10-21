@@ -14,6 +14,7 @@ import { More, Left } from './src/components/icons'
 
 import { COLORS } from './src/utils/colors';
 import { TouchableOpacity } from 'react-native';
+import SignLangView from './src/screens/signLang';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -44,41 +45,27 @@ function SearchStack({ historyData, setHistoryData, favoritesData, setFavoritesD
                         >
                             <Left color={COLORS.textDark} />
                         </TouchableOpacity>
-                    ),
-                    headerRight: () => (
-                        <TouchableOpacity
-                            style={{ padding: 5 }}
-                            onPress={
-                                () => navigation.navigate("Search")
-                            }
-                        >
-                            <More color={COLORS.textDark} />
-                        </TouchableOpacity>
                     )
                 })}
             >
                 {(props) => <DetailView favoritesData={favoritesData} setFavoritesData={setFavoritesData} {...props} />}
             </HomeStack.Screen>
+            <HomeStack.Screen
+                name="Modal"
+                options={{
+                    headerShown: false,
+                    presentation: 'modal',
+                }}
+
+                component={SignLangView}
+            />
         </HomeStack.Navigator>
     );
 }
 
-
 export default function Navigation() {
     const [historyData, setHistoryData] = useState([]);
     const [favoritesData, setFavoritesData] = useState([]);
-
-    const config = {
-        animation: 'none',
-        config: {
-            stiffness: 1000,
-            damping: 500,
-            mass: 3,
-            overshootClamping: true,
-            restDisplacementThreshold: 0.01,
-            restSpeedThreshold: 0.01,
-        },
-    };
 
     return (
         <NavigationContainer >

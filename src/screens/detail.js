@@ -9,7 +9,7 @@ import LoaderText from "../components/LoaderText";
 import { Audio } from 'expo-av';
 
 
-function DetailView({ route, favoritesData, setFavoritesData }) {
+function DetailView({ navigation, route, favoritesData, setFavoritesData }) {
   const keyword = route.params?.title;
   const [data, setData] = useState(null);
   const [sesKod, setSesKod] = useState("");
@@ -62,11 +62,16 @@ function DetailView({ route, favoritesData, setFavoritesData }) {
         <View>
           <Text style={{ fontSize: 32, fontWeight: "bold" }}>{keyword}</Text>
           {data?.telaffuz || data?.lisan ? (
-            <Text style={{ color: COLORS.textLight }}>
+            <Text style={{ color: COLORS.textLight, marginTop:6}}>
               {data?.telaffuz && data?.lisan}
             </Text>
-          ) : null}
-          <Text style={{ color: COLORS.textLight, marginTop: 6 }}>{data?.telaffuz && data?.telaffuz} {data?.lisan}</Text>
+          ) : (!sesKod && (
+            (
+              <Text style={{ color: COLORS.textLight, marginTop:7 }}>
+                Atasözleri ve Deyimler
+              </Text>
+            )
+          ))}
         </View>
 
         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
@@ -86,7 +91,7 @@ function DetailView({ route, favoritesData, setFavoritesData }) {
               </ActionButton>
             )}
           </View>
-          <ActionButton>
+          <ActionButton onPress={() => navigation.navigate('Modal', { keyword: keyword })}>
             <Hand width={24} height={24} color={COLORS.textDark} />
             <ActionButtonTitle>Türk İşaret Dili</ActionButtonTitle>
           </ActionButton>
