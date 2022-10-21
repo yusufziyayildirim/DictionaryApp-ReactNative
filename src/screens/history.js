@@ -5,7 +5,7 @@ import TitleCardList from "../components/TitleCardList";
 import SvgVector from "../components/icons/Vector";
 import { History } from '../components/icons'
 
-function HistoryView({ navigation, historyData, setHistoryData }) {
+function HistoryView({ navigation, historyData }) {
   return (
     <View style={{ backgroundColor: COLORS.softGray, flex: 1 }}>
       <FocusAwareStatusBar barStyle="dark-content" />
@@ -16,7 +16,7 @@ function HistoryView({ navigation, historyData, setHistoryData }) {
       ) : (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
           <History color={COLORS.textLight} />
-          <Text style={{ fontWeight: "600", color: COLORS.textMedium, marginTop: 14 }}>Henüz Favori yok </Text>
+          <Text style={{ fontWeight: "600", color: COLORS.textMedium, marginTop: 14 }}>Henüz geçmiş yok </Text>
         </View>
       )}
 

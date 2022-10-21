@@ -43,7 +43,6 @@ function SearchView({ navigation, historyData, setHistoryData }) {
     setSearchRes("")
   }
 
-
   return (
     <SafeAreaView style={{ backgroundColor: isSearchFocus ? COLORS.softGray : COLORS.red, flex: 1 }}>
       <HomeSearch
