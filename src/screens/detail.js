@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import { COLORS } from "../utils/colors";
 import { ActionButton, ActionButtonTitle } from "../components/ActionButton";
-import { Sound, Favorite, Hand, FavoriteSolid } from '../components/icons'
+import { Sound, Favorite, Hand, FavoriteSolid, SoundSolid } from '../components/icons'
 import DetailSummaryItem from "../components/DetailSummaryItem";
 import LoaderText from "../components/LoaderText";
 import { Audio } from 'expo-av';
@@ -14,6 +14,7 @@ function DetailView({ navigation, route, favoritesData, setFavoritesData }) {
   const [data, setData] = useState(null);
   const [sesKod, setSesKod] = useState("");
   const [isFav, setIsFav] = useState(false);
+  const [play, setPlay] = useState(false);
 
   const getDetailData = async () => {
     const response = await fetch(`https://sozluk.gov.tr/gts?ara=${keyword}`)
@@ -40,9 +41,19 @@ function DetailView({ navigation, route, favoritesData, setFavoritesData }) {
   }
 
   const playAudio = async () => {
-    const { sound } = await Audio.Sound.createAsync({ uri: `https://sozluk.gov.tr/ses/${sesKod}.wav` })
-
-    await sound.playAsync();
+    try {
+      const { sound } = await Audio.Sound.createAsync({ uri: `https://sozluk.gov.tr/ses/${sesKod}.wav` })
+      sound.setOnPlaybackStatusUpdate(async (status) => {
+        if (status.didJustFinish === true) {
+          setPlay(false)
+          await sound.unloadAsync()
+        }
+      })
+      setPlay(true)
+      await sound.playAsync();
+    } catch (error) {
+      // An error occurred!
+    }
   }
 
   useEffect(() => {
@@ -62,28 +73,33 @@ function DetailView({ navigation, route, favoritesData, setFavoritesData }) {
         <View>
           <Text style={{ fontSize: 32, fontWeight: "bold" }}>{keyword}</Text>
           {data?.telaffuz || data?.lisan ? (
-            <Text style={{ color: COLORS.textLight, marginTop:6}}>
-              {data?.telaffuz && data?.lisan}
+            <Text style={{ color: COLORS.textLight, marginTop: 6 }}>
+              {data?.telaffuz || data?.lisan}
             </Text>
           ) : (!sesKod && (
-            (
-              <Text style={{ color: COLORS.textLight, marginTop:7 }}>
-                Atasözleri ve Deyimler
-              </Text>
-            )
+            <Text style={{ color: COLORS.textLight, marginTop: 7 }}>
+              Atasözleri ve Deyimler
+            </Text>
           ))}
         </View>
 
         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", width: 114 }}>
             {sesKod && (
-              <ActionButton disabled={!data} onPress={() => playAudio()}>
-                <Sound width={24} height={24} color={COLORS.textDark} />
-              </ActionButton>
+
+              play ? (
+                <ActionButton disabled={true}>
+                  <SoundSolid width={24} height={24} color={COLORS.red} />
+                </ActionButton>
+              ) : (
+                <ActionButton disabled={!data} onPress={() => playAudio()}>
+                  <Sound width={24} height={24} color={COLORS.textDark} />
+                </ActionButton>
+              )
             )}
             {isFav ? (
               <ActionButton onPress={() => delFavData(keyword)}>
-                <FavoriteSolid width={24} height={24} color={COLORS.textDark} />
+                <FavoriteSolid width={24} height={24} color={COLORS.red} />
               </ActionButton>
             ) : (
               <ActionButton onPress={() => addFavData(keyword)}>
