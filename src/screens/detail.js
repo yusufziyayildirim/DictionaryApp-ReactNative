@@ -58,12 +58,34 @@ function DetailView({ navigation, route, favoritesData, setFavoritesData }) {
 
   useEffect(() => {
     getDetailData()
-    favoritesData.map(favData => {
-      if (favData.madde.toLowerCase() == keyword) {
-        setIsFav(true)
-      }
-    })
+    // favoritesData.map(favData => {
+    //   if (favData.madde.toLowerCase() == keyword) {
+    //     setIsFav(true)
+    //   }
+    // })
+    if (favoritesData.find(data => data.madde.toLowerCase() == keyword.toLowerCase())) {
+      setIsFav(true)
+    }
+    else{
+      setIsFav(false)
+    }
+    // eğer hepsi farklı ise setısfavı false yap
+    // çünkü isfav bir önceki seferden true kaldı
   }, [])
+
+  useEffect(() => {
+    // favoritesData.map(favData => {
+    //   if (favData.madde.toLowerCase() == keyword) {
+    //     setIsFav(true)
+    //   }
+    // })
+    if (favoritesData.find(data => data.madde.toLowerCase() == keyword.toLowerCase())) {
+      setIsFav(true)
+    }
+    else{
+      setIsFav(false)
+    }
+  }, [keyword])
 
   return (
 
