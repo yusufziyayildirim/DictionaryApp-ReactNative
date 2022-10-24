@@ -67,7 +67,7 @@ function SearchView({ navigation, historyData, setHistoryData }) {
               marginTop={false}
             />
             <SuggestionCard
-              title="Bir Kelime"
+              title="Bir Deyim - Atasözü"
               data={homeData?.atasoz[0]}
               onPress={() => navigation.navigate('Detail', { title: homeData?.atasoz[0].madde })}
             />

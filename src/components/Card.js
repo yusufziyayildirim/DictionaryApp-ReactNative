@@ -1,16 +1,14 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text } from 'react-native'
 import { COLORS } from '../utils/colors'
 
-const CardContainer = ({ children, props }) => {
+const CardContainer = ({ children }) => {
   return (
-    // <TouchableOpacity>
       <View style={{ backgroundColor: "white", borderRadius: 8, paddingVertical: 16, paddingHorizontal: 12, marginTop: 10 }}>
         <View style={{ borderLeftWidth: 3, paddingLeft: 12, borderLeftColor: COLORS.light }}>
           {children}
         </View>
       </View>
-    // </TouchableOpacity>
   )
 }
 

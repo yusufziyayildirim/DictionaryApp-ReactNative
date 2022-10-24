@@ -8,7 +8,7 @@ import FocusAwareStatusBar from './FocusAwareStatusBar'
 
 import bg from '../assets/image/bg.jpg'
 
-const HomeSearch = ({isSearchFocus, onSearchFocus, searchKeywords, clearRes}) => {
+const HomeSearch = ({ isSearchFocus, onSearchFocus, searchKeywords, clearRes }) => {
     const [bgOpacity] = useState(new Animated.Value(1))
     const [redHeight] = useState(new Animated.Value(230))
 

@@ -17,6 +17,7 @@ function SearchBox({ onChangeFocus, searchKeywords, clearRes }) {
         clearRes()
         Keyboard.dismiss()
     }
+    
     const onClear = () => {
         setValue("")
         clearRes()
@@ -24,9 +25,9 @@ function SearchBox({ onChangeFocus, searchKeywords, clearRes }) {
 
     const handleOnChangeText = (text) => {
         setValue(text)
-        if(text.length > 2){
+        if (text.length > 2) {
             searchKeywords(text);
-        }else{
+        } else {
             clearRes()
         }
     }
