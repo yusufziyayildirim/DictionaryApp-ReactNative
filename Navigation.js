@@ -55,6 +55,7 @@ function SearchStack({ historyData, setHistoryData, favoritesData, setFavoritesD
                 options={{
                     headerShown: false,
                     presentation: 'modal',
+                    contentStyle: { backgroundColor: "none", justifyContent:"flex-end" },
                 }}
 
                 component={SignLangView}
