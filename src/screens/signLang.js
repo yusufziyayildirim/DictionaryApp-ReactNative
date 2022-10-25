@@ -25,12 +25,12 @@ const SignLangView = ({ route }) => {
                     {
                         keyword.split("").map((char, index) => (
                             <View key={index}>
-                                {char != " " ? (
+                                {char != " " && char != ","  ? (
                                     <>
                                         <View style={{ width: 102, height: 64, padding: 3, borderWidth: 1, borderColor: COLORS.light, borderRadius: 6, marginRight: 10, marginBottom: 8 }}>
                                             <Image
                                                 style={{ width: 94, height: 58 }}
-                                                source={{ uri: `https://sozluk.gov.tr/assets/img/isaret/${char}.gif` }}
+                                                source={{ uri: `https://sozluk.gov.tr/assets/img/isaret/${char.toLowerCase()}.gif` }}
                                             />
                                         </View>
                                         <View style={{ width: 102, height: 24, backgroundColor: COLORS.light, borderRadius: 6, marginRight: 10, justifyContent: "center" }}>
@@ -40,9 +40,8 @@ const SignLangView = ({ route }) => {
                                         </View>
                                     </>
                                 ) : (
-                                    <View style={{ width: 20 }} />
+                                    <View style={{ width: 30 }} />
                                 )}
-
                             </View>
                         ))
                     }
