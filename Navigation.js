@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SearchView from './src/screens/search';
 import HistoryView from './src/screens/history';
@@ -15,6 +16,7 @@ import { More, Left } from './src/components/icons'
 import { COLORS } from './src/utils/colors';
 import { TouchableOpacity } from 'react-native';
 import SignLangView from './src/screens/signLang';
+
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -55,7 +57,7 @@ function SearchStack({ historyData, setHistoryData, favoritesData, setFavoritesD
                 options={{
                     headerShown: false,
                     presentation: 'modal',
-                    contentStyle: { backgroundColor: "none", justifyContent:"flex-end" },
+                    contentStyle: { backgroundColor: "none", justifyContent: "flex-end" },
                 }}
 
                 component={SignLangView}
@@ -67,6 +69,60 @@ function SearchStack({ historyData, setHistoryData, favoritesData, setFavoritesD
 export default function Navigation() {
     const [historyData, setHistoryData] = useState([]);
     const [favoritesData, setFavoritesData] = useState([]);
+
+    useEffect(() => {
+        getFavoriteData()
+        getHistoryData()
+    }, [])
+
+    useEffect(() => {
+        storeHistoryData(historyData)
+    }, [historyData])
+
+    useEffect(() => {
+        storeFavoriteData(favoritesData)
+    }, [favoritesData])
+
+    const storeHistoryData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@userData:history', jsonValue)
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
+    const storeFavoriteData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@userData:favorite', jsonValue)
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
+    const getFavoriteData = async () => {
+        try {
+            const getFavorite = await AsyncStorage.getItem('@userData:favorite');
+            if (getFavorite !== null) {
+                setFavoritesData(JSON.parse(getFavorite))
+            }
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
+    const getHistoryData = async () => {
+        try {
+            const getHistory = await AsyncStorage.getItem('@userData:history')
+            if (getHistory !== null) {
+                setHistoryData(JSON.parse(getHistory))
+            }
+        } catch (error) {
+            console.log("error", error)
+
+        }
+    }
 
     return (
         <NavigationContainer >
