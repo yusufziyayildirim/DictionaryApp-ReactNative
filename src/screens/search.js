@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
-
-import { COLORS } from "../utils/colors";
 import SuggestionCard from "../components/SuggestionCard";
 import TitleCardList from "../components/TitleCardList";
 import HomeSearch from "../components/HomeSearch";
+
+import { COLORS } from "../utils/colors";
 
 function SearchView({ navigation, historyData, setHistoryData }) {
   const [isSearchFocus, setSearchFocus] = useState(false);

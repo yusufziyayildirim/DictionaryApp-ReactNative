@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard } from "react-native";
+
 import { COLORS } from "../utils/colors";
+
 import { Search, Close } from "./icons";
 
 function SearchBox({ onChangeFocus, searchKeywords, clearRes }) {
@@ -17,7 +19,7 @@ function SearchBox({ onChangeFocus, searchKeywords, clearRes }) {
         clearRes()
         Keyboard.dismiss()
     }
-    
+
     const onClear = () => {
         setValue("")
         clearRes()

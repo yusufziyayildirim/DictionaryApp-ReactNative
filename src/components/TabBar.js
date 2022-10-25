@@ -1,7 +1,8 @@
-import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Favorite, Search, History } from './icons'
+
 import { COLORS } from '../utils/colors';
+
+import { Favorite, Search, History } from './icons'
 
 function TabBar({ state, descriptors, navigation }) {
     return (

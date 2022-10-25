@@ -1,7 +1,8 @@
-import React from 'react'
 import { TouchableOpacity, View, Text, FlatList } from 'react-native'
-import { COLORS } from '../utils/colors'
+
 import { SimpleCardContainer, SimpleCardTitle } from './SimpleCard'
+
+import { COLORS } from '../utils/colors'
 
 const TitleCardList = ({ data, navigation, title, icon, oldData, setOldData }) => {
 

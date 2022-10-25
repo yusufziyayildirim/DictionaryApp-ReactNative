@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
-import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import { COLORS } from "../utils/colors";
-import { ActionButton, ActionButtonTitle } from "../components/ActionButton";
-import { Sound, Favorite, Hand, FavoriteSolid, SoundSolid } from '../components/icons'
-import DetailSummaryItem from "../components/DetailSummaryItem";
-import LoaderText from "../components/LoaderText";
 import { Audio } from 'expo-av';
 
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import { ActionButton, ActionButtonTitle } from "../components/ActionButton";
+import DetailSummaryItem from "../components/DetailSummaryItem";
+import LoaderText from "../components/LoaderText";
+import { Sound, Favorite, Hand, FavoriteSolid, SoundSolid } from '../components/icons'
+
+import { COLORS } from "../utils/colors";
 
 function DetailView({ navigation, route, favoritesData, setFavoritesData }) {
   const keyword = route.params?.title;
@@ -36,7 +37,7 @@ function DetailView({ navigation, route, favoritesData, setFavoritesData }) {
   const delFavData = () => {
     setIsFav(false)
     setFavoritesData(
-      favoritesData.filter(favData => favData.madde.toLowerCase() !== keyword)
+      favoritesData.filter(favData => favData.madde.toLowerCase() !== keyword.toLowerCase())
     );
   }
 
@@ -58,27 +59,15 @@ function DetailView({ navigation, route, favoritesData, setFavoritesData }) {
 
   useEffect(() => {
     getDetailData()
-    // favoritesData.map(favData => {
-    //   if (favData.madde.toLowerCase() == keyword) {
-    //     setIsFav(true)
-    //   }
-    // })
     if (favoritesData.find(data => data.madde.toLowerCase() == keyword.toLowerCase())) {
       setIsFav(true)
     }
     else{
       setIsFav(false)
     }
-    // eğer hepsi farklı ise setısfavı false yap
-    // çünkü isfav bir önceki seferden true kaldı
   }, [])
 
   useEffect(() => {
-    // favoritesData.map(favData => {
-    //   if (favData.madde.toLowerCase() == keyword) {
-    //     setIsFav(true)
-    //   }
-    // })
     if (favoritesData.find(data => data.madde.toLowerCase() == keyword.toLowerCase())) {
       setIsFav(true)
     }

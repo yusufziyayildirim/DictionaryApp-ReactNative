@@ -1,9 +1,9 @@
-import React from 'react'
 import { View, Text, TouchableOpacity } from "react-native";
+
 import { CardContainer, CardSummary, CardTitle } from "./Card";
+import LoaderText from './LoaderText';
 
 import { COLORS } from '../utils/colors';
-import LoaderText from './LoaderText';
 
 
 const SuggestionCard = ({ title, onPress, data, marginTop = true }) => {

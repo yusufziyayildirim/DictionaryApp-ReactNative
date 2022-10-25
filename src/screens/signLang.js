@@ -1,9 +1,6 @@
-import React from 'react'
 import { View, Text, ScrollView, Image } from 'react-native'
-import { COLORS } from '../utils/colors'
-import bg from '../assets/image/bg.jpg'
-import { Logo } from '../components/icons'
 
+import { COLORS } from '../utils/colors'
 
 const SignLangView = ({ route }) => {
     const keyword = route.params?.keyword;
@@ -25,7 +22,7 @@ const SignLangView = ({ route }) => {
                     {
                         keyword.split("").map((char, index) => (
                             <View key={index}>
-                                {char != " " && char != ","  ? (
+                                {char != " " && char != "," ? (
                                     <>
                                         <View style={{ width: 102, height: 64, padding: 3, borderWidth: 1, borderColor: COLORS.light, borderRadius: 6, marginRight: 10, marginBottom: 8 }}>
                                             <Image

@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { useState, useEffect } from "react";
+import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,14 +9,12 @@ import SearchView from './src/screens/search';
 import HistoryView from './src/screens/history';
 import FavoriteView from './src/screens/favorite';
 import DetailView from './src/screens/detail';
-
-import TabBar from './src/components/TabBar';
-import { More, Left } from './src/components/icons'
-
-import { COLORS } from './src/utils/colors';
-import { TouchableOpacity } from 'react-native';
 import SignLangView from './src/screens/signLang';
 
+import TabBar from './src/components/TabBar';
+import { Left } from './src/components/icons'
+
+import { COLORS } from './src/utils/colors';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();

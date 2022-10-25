@@ -1,13 +1,12 @@
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Navigation from './Navigation'
-import * as SplashScreen from "expo-splash-screen";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Image, View, Text } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as SplashScreen from "expo-splash-screen";
+
+import Navigation from './Navigation'
 import { Logo } from './src/components/icons';
 
-
 export default function App() {
-
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {

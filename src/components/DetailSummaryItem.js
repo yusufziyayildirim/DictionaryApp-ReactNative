@@ -1,9 +1,8 @@
-import React from 'react'
 import { View, Text } from 'react-native'
+
 import { COLORS } from '../utils/colors'
 
 const DetailSummaryItem = ({ children, data, border = true }) => {
-
   const type = (data?.ozelliklerListe && data.ozelliklerListe.map(item => item.tam_adi)) || ['isim']
 
   return (
@@ -23,7 +22,7 @@ const DetailSummaryItem = ({ children, data, border = true }) => {
             {data.orneklerListe &&
               data.orneklerListe.map(ornek => (
                 <View key={ornek.ornek_id}>
-                  <Text style={{ marginLeft: 10, marginTop: 10, color: COLORS.textLight, fontWeight: '500'}}>
+                  <Text style={{ marginLeft: 10, marginTop: 10, color: COLORS.textLight, fontWeight: '500' }}>
                     {ornek.ornek}{' '}
                     <Text style={{ fontWeight: '700', color: COLORS.textLight }}>
                       {ornek.yazar_id !== '0' && `- ${ornek.yazar[0].tam_adi}`}
@@ -36,7 +35,7 @@ const DetailSummaryItem = ({ children, data, border = true }) => {
       ) : (
         children
       )}
-      
+
       {border && (
         <View style={{ position: "absolute", left: 12, right: 12, bottom: 0, height: 1, backgroundColor: COLORS.light }} />
       )}

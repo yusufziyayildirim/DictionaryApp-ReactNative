@@ -1,10 +1,10 @@
-// import React from 'react'
 import { useEffect, useState } from "react";
 import { View, Animated } from "react-native";
-import SearchBox from "../components/SearchBox";
+
+import SearchBox from "./SearchBox";
+import FocusAwareStatusBar from './FocusAwareStatusBar'
 
 import { Logo } from "./icons";
-import FocusAwareStatusBar from './FocusAwareStatusBar'
 
 import bg from '../assets/image/bg.jpg'
 
